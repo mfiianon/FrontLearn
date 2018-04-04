@@ -1,0 +1,41 @@
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<html>
+<body>
+
+<h1>Extend</h1>
+
+<div id="div1">
+	<div id="div10">div10</div>
+	<div id="div11">div11</div>
+</div>
+<div id="div2">div2</div>
+<div id="div3">div3</div>
+<p>......</p>
+
+</body>
+</html>
+<script type="text/javascript">
+	$.extend({
+		sayHello : function(name){
+			console.log('Hello,' + (name ? name : 'Dude') + '!');
+		}
+	})
+	$.sayHello();
+	$.sayHello('Wayou');
+    var o = {a:1,b:2};
+    console.log(toString.call(o));
+
+    console.log('-----------------------------------------------------------------------');
+
+    var m1 = ['a','b','c'];
+
+    var m2 = ['d',function(){console.log('m2')},2];
+
+    var mm = $.merge(m1,m2);
+
+	$(document).ready(function(){
+
+	});
+
+
+</script>

@@ -1,0 +1,113 @@
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<html>
+<body>
+
+<h1>Index</h1>
+
+<p>......</p>
+
+</body>
+</html>
+<script type="text/javascript">
+	//JS三种创建对象方式 1.对象字面量 2.new 3.Object.create(prototype)
+	function F(){};
+
+	var f = new F();
+
+	console.log('f.__proto__ == F.prototype ? ' + (f.__proto__ == F.prototype));
+	console.log('F.prototype.__proto__  = ' + F.prototype.__proto__);
+	//所有对象的最顶层对象显示原型的隐式原型都是Object
+	console.log('All object and build-in object\'s prototype is the same, like ' + F.prototype.__proto__ +',' + Array.prototype.__proto__ + ',' + String.prototype.__proto__ + ',' + Date.prototype.__proto__);
+	console.log('All build-in object __proto__ is Object\'s prototype.' + Array.prototype.__proto__ === Object.prototype);
+
+	console.log('-----------------------------------------------------------------------');
+	// 一直到ES5，在标准的ECMAScript里对象字面量都无法指定对象的原型；只有用非标准的__proto__属性才可以在对象字面量里指定原型，例如：
+	function Foo() { }
+	Foo.prototype.bar = function () { console.log("called bar") }
+	var o = { __proto__: Foo.prototype } // non-standard "__proto__" property
+	console.log(o instanceof Foo)        // true
+	o.bar()                              // prints "called bar"
+	// 如果用ES5的标准写法近似在对象字面量上指定原型，那得用Object.create()函数：
+	var o = Object.create(Foo.prototype, {})
+
+	console.log('-----------------------------------------------------------------------');
+
+	const person = {
+	  isHuman: false,
+	  printIntroduction: function () {
+	    console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+	  }
+	};
+
+	const me = Object.create(person);
+
+	me.name = "Matthew"; // "name" is a property set on "me", but not on "person"
+	me.isHuman = true; // inherited properties can be overwritten
+
+	me.printIntroduction();
+	// expected output: "My name is Matthew. Am I human? true"
+
+	console.log('-----------------------------------------------------------------------');
+
+	//constructor
+	var ot = {};
+	console.log('ot.constructor === Object ? ' + (ot.constructor === Object));
+	var ow = new Object;
+	console.log('ow.constructor === Object ? ' + (ow.constructor === Object));
+	var a = [];
+	console.log('a.constructor === Array ? ' + (a.constructor === Array));
+	var n = new Number(3);
+	console.log('n.constructor === Number ? ' + (n.constructor === Number));
+
+	console.log('-----------------------------------------------------------------------');
+	//
+	function Type() { };
+	var	types = [
+		new Array,
+	    [],
+		new Boolean,
+	    true,        // remains unchanged
+		new Date,
+		new Error,
+		new Function,
+		function(){},
+		Math,	
+		new Number,
+		1,           // remains unchanged
+		new Object,
+		{},
+		new RegExp,
+		/(?:)/,
+		new String,
+		"test"       // remains unchanged
+	];
+
+	for(var i = 0; i < types.length; i++) {
+		types[i].constructor = Type;
+		types[i] = [ types[i].constructor, types[i] instanceof Type, types[i].toString() ];
+	};
+
+	//基本数据类型(boolean,number,string e.g)的构造方法无法修改 因为他们属于只读
+	console.log('types join = \r\n' + types.join("\n") );
+
+	console.log('-----------------------------------------------------------------------');
+
+	
+	$(document).ready(function(){
+		//如何将tf传出给其他人用？ 立即执行函数？
+		function a(){
+			var t = 1;
+			function tf(){
+				console.log(tf.prototype);
+				return t;
+			}
+			return this;
+		}
+		debugger;
+		var ap = a.prototype;
+		// console.log(a().tf());
+	});
+	console.log('jQuery version = ' + $.fn.jquery);	
+
+
+</script>
